@@ -5,5 +5,5 @@ output "public_ip" {
 
 output "ssh_command" {
   description = "Command to SSH into the instance"
-  value       = "ssh -i ~/.ssh/forfun ubuntu@${aws_instance.web.public_ip}"
+  value       = "ssh -i ~/.ssh/<your-ssh-key> ubuntu@${aws_instance.web.public_ip}"
 }
