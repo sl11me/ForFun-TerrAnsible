@@ -1,0 +1,26 @@
+- name: Configure web server with Nginx
+  hosts: web
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Deploy custom index.html
+      template:
+        src: templates/index.html.j2
+        dest: /var/www/html/index.html
+        mode: '0644'
+
+    - name: Ensure nginx running and enabled
+      service:
+        name: nginx
+        state: started
+        enabled: yes

@@ -1,0 +1,14 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfplan
+
+# Ansible
+*.retry
+
+# Mac / IDE
+.DS_Store
+.idea/
+.vscode/

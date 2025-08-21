@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>ForFun IaC Basic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style> body{font-family:system-ui;margin:3rem} code{background:#f2f2f2;padding:2px 6px;border-radius:6px} </style>
+</head>
+<body>
+  <h1>🚀 Déploiement réussi !</h1>
+  <p>Instance gérée par <strong>Terraform</strong> et configurée par <strong>Ansible</strong>.</p>
+  <p>Hostname: {{ ansible_hostname }}</p>
+  <p>Public IP: {{ hostvars[inventory_hostname]['ansible_host'] | default(inventory_hostname) }}</p>
+  <hr>
+</body>
+</html>
