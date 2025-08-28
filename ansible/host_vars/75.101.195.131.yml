@@ -9,7 +9,7 @@ instance_config:
 
 # Configuration réseau
 network_config:
-  public_ip: "75.101.195.131"
+  public_ip: "<your-instance-public-ip>"  # ⚠️ Remplacez par votre IP réelle
   private_ip: "{{ ansible_default_ipv4.address }}"
   domain: null  # À configurer si vous avez un domaine
 
