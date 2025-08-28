@@ -1,0 +1,46 @@
+# Variables spécifiques au groupe web
+# ===================================
+
+# Configuration du serveur web
+web_server:
+  name: nginx
+  version: latest
+  config_dir: /etc/nginx
+  sites_available: /etc/nginx/sites-available
+  sites_enabled: /etc/nginx/sites-enabled
+  log_dir: /var/log/nginx
+  document_root: /var/www/html
+  port: 80
+  ssl_port: 443
+
+# Configuration des performances
+performance:
+  worker_processes: auto
+  worker_connections: 1024
+  keepalive_timeout: 65
+  client_max_body_size: 10M
+
+# Configuration des logs
+logging:
+  access_log_enabled: true
+  error_log_enabled: true
+  log_level: info
+  log_rotation: true
+  log_retention_days: 30
+
+# Configuration de sécurité
+security:
+  firewall_enabled: false
+  ufw_policy: deny
+  allowed_ports:
+    - 22
+    - 80
+    - 443
+  ssl_enabled: false
+  basic_auth_enabled: false
+
+# Configuration de monitoring
+monitoring:
+  enabled: false
+  health_check_path: /health
+  metrics_port: 9100 

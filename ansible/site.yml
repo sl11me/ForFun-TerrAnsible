@@ -1,26 +1,60 @@
 - name: Configure web server with Nginx
   hosts: web
   become: true
+  vars_files:
+    - vars/main.yml
   tasks:
     - name: Update apt cache
       apt:
-        update_cache: yes
-      when: ansible_os_family == "Debian"
+        update_cache: "{{ packages.update_cache }}"
+      when: 
+        - ansible_os_family == "{{ conditions.os_family }}"
+        - task_config.update_cache | default(true)
 
-    - name: Install Nginx
+    - name: Install required packages
       apt:
-        name: nginx
-        state: present
-      when: ansible_os_family == "Debian"
+        name: "{{ packages.install }}"
+        state: "{{ packages.state }}"
+      when: 
+        - ansible_os_family == "{{ conditions.os_family }}"
+        - task_config.install_packages | default(true)
+      notify: restart nginx
+
+    - name: Create web directory if not exists
+      file:
+        path: "{{ nginx.document_root }}"
+        state: directory
+        mode: '0755'
+        owner: www-data
+        group: www-data
+      when: task_config.deploy_content | default(true)
 
     - name: Deploy custom index.html
       template:
-        src: templates/index.html.j2
-        dest: /var/www/html/index.html
-        mode: '0644'
+        src: "{{ files.template.src }}"
+        dest: "{{ files.template.dest }}"
+        mode: "{{ files.template.mode }}"
+        owner: www-data
+        group: www-data
+      when: task_config.deploy_content | default(true)
+      notify: reload nginx
 
     - name: Ensure nginx running and enabled
       service:
-        name: nginx
-        state: started
-        enabled: yes
+        name: "{{ service.name }}"
+        state: "{{ service.state }}"
+        enabled: "{{ service.enabled }}"
+      when: task_config.start_services | default(true)
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: "{{ service.name }}"
+        state: restarted
+      when: handler_config.restart_nginx | default(true)
+
+    - name: reload nginx
+      service:
+        name: "{{ service.name }}"
+        state: reloaded
+      when: handler_config.reload_nginx | default(true)
