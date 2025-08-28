@@ -4,6 +4,7 @@
 *.tfstate.*
 crash.log
 *.tfplan
+SECURITY.md
 
 # Ansible
 *.retry
