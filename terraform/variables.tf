@@ -23,13 +23,31 @@ variable "instance_type" {
 }
 
 variable "allow_ssh_cidr" {
-  description = "CIDR allowed to SSH (use your IP/32 in prod)"
+  description = "CIDR allowed to SSH (use your IP/32 in production)"
   type        = string
-  default     = "0.0.0.0/0"
+  default     = "0.0.0.0/0"  
+  validation {
+    condition     = can(cidrhost(var.allow_ssh_cidr, 0))
+    error_message = "Le CIDR SSH doit être valide."
+  }
 }
 
 variable "my_ip" {
-  description = "Ip à exposer par l'instance EC2"
+  description = "IP à exposer par l'instance EC2 (HTTP)"
   type        = string
   default     = "0.0.0.0/0"
+  validation {
+    condition     = can(cidrhost(var.my_ip, 0))
+    error_message = "L'IP doit être un CIDR valide."
+  }
+}
+
+variable "environment" {
+  description = "Environment (dev, staging, prod)"
+  type        = string
+  default     = "dev"
+  validation {
+    condition     = contains(["dev", "staging", "prod"], var.environment)
+    error_message = "L'environnement doit être dev, staging ou prod."
+  }
 }

@@ -4,10 +4,12 @@
 *.tfstate.*
 crash.log
 *.tfplan
+SECURITY.md
 
 # Ansible
 *.retry
 ansible/README_VARIABLES.md
+ansible/inventory.ini
 
 # Mac / IDE
 .DS_Store
