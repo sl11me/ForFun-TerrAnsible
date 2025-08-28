@@ -1,0 +1,30 @@
+# =============================================
+
+# Configuration spécifique de l'instance
+instance_config:
+  region: us-east-1
+  instance_type: t2.micro
+  environment: production
+  project: forfun-iac
+
+# Configuration réseau
+network_config:
+  public_ip: "75.101.195.131"
+  private_ip: "{{ ansible_default_ipv4.address }}"
+  domain: null  # À configurer si vous avez un domaine
+
+# Configuration personnalisée du site
+custom_site:
+  title: "ForFun IaC Basic - Instance AWS"
+  theme: default
+  features:
+    - hostname_display
+    - ip_display
+    - terraform_info
+    - ansible_info
+
+# Configuration de monitoring (optionnel)
+monitoring:
+  enabled: false
+  metrics_port: 9100
+  health_check_path: /health 

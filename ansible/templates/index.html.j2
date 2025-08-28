@@ -1,16 +1,55 @@
 <!doctype html>
-<html lang="fr">
+<html lang="{{ web_content.language }}">
 <head>
-  <meta charset="utf-8">
-  <title>ForFun IaC Basic</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style> body{font-family:system-ui;margin:3rem} code{background:#f2f2f2;padding:2px 6px;border-radius:6px} </style>
+  <meta charset="{{ web_content.charset }}">
+  <title>{{ web_content.title }}</title>
+  <meta name="viewport" content="{{ web_content.viewport }}">
+  <style> 
+    body{
+      font-family: system-ui;
+      margin: 3rem;
+      line-height: 1.6;
+    } 
+    code{
+      background: #f2f2f2;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .info{
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+    .success{
+      color: #28a745;
+    }
+    .meta{
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
   <h1>🚀 Déploiement réussi !</h1>
   <p>Instance gérée par <strong>Terraform</strong> et configurée par <strong>Ansible</strong>.</p>
-  <p>Hostname: {{ ansible_hostname }}</p>
-  <p>Public IP: {{ hostvars[inventory_hostname]['ansible_host'] | default(inventory_hostname) }}</p>
+  
+  <div class="info">
+    <p><strong>Hostname:</strong> {{ ansible_hostname }}</p>
+    <p><strong>Public IP:</strong> {{ hostvars[inventory_hostname]['ansible_host'] | default(inventory_hostname) }}</p>
+    <p><strong>Application:</strong> {{ app_name }} v{{ app_version }}</p>
+    <p><strong>Déployé le:</strong> {{ deployment_date }}</p>
+    {% if instance_config is defined %}
+    <p><strong>Région:</strong> {{ instance_config.region }}</p>
+    <p><strong>Type d'instance:</strong> {{ instance_config.instance_type }}</p>
+    {% endif %}
+  </div>
+  
+  <div class="meta">
+    <p>🚀 <strong>Terraform</strong> + <strong>Ansible</strong> = Infrastructure as Code</p>
+    <p>Instance configurée automatiquement avec des variables personnalisables</p>
+  </div>
+  
   <hr>
 </body>
 </html>

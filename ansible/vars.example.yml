@@ -1,0 +1,45 @@
+# Exemple de personnalisation des variables
+# Copiez ce fichier vers vars/custom.yml et modifiez selon vos besoins
+# ================================================================
+
+# Personnalisation du site web
+web_content:
+  title: "Mon Application Personnalisée"
+  language: "fr"
+  charset: "utf-8"
+  viewport: "width=device-width, initial-scale=1"
+
+# Personnalisation du contenu
+site_content:
+  welcome_message: "🎉 Bienvenue sur mon site !"
+  subtitle: "Site déployé automatiquement avec IaC"
+  show_hostname: true
+  show_ip: true
+  show_timestamp: true
+
+# Configuration des paquets supplémentaires
+packages:
+  install:
+    - nginx
+    - curl
+    - htop
+    - vim
+
+# Configuration de sécurité
+security:
+  firewall_enabled: true
+  ssl_enabled: false
+  basic_auth_enabled: false
+
+# Configuration des performances
+performance:
+  worker_processes: 2
+  worker_connections: 512
+  keepalive_timeout: 30
+  client_max_body_size: 5M
+
+# Variables d'environnement spécifiques
+app_environment:
+  debug: false
+  log_level: info
+  cache_enabled: true
