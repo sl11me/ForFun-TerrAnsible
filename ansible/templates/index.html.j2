@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="{{ web_content.language }}">
+<html lang="fr">
 <head>
-  <meta charset="{{ web_content.charset }}">
-  <title>{{ web_content.title }}</title>
-  <meta name="viewport" content="{{ web_content.viewport }}">
+  <meta charset="utf-8">
+  <title>ForFun IaC Basic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style> 
     body{
       font-family: system-ui;
@@ -37,17 +37,13 @@
   <div class="info">
     <p><strong>Hostname:</strong> {{ ansible_hostname }}</p>
     <p><strong>Public IP:</strong> {{ hostvars[inventory_hostname]['ansible_host'] | default(inventory_hostname) }}</p>
-    <p><strong>Application:</strong> {{ app_name }} v{{ app_version }}</p>
-    <p><strong>Déployé le:</strong> {{ deployment_date }}</p>
-    {% if instance_config is defined %}
-    <p><strong>Région:</strong> {{ instance_config.region }}</p>
-    <p><strong>Type d'instance:</strong> {{ instance_config.instance_type }}</p>
-    {% endif %}
+    <p><strong>Application:</strong> ForFun IaC Basic v1.0.0</p>
+    <p><strong>Déployé le:</strong> {{ ansible_date_time.iso8601 }}</p>
   </div>
   
   <div class="meta">
     <p>🚀 <strong>Terraform</strong> + <strong>Ansible</strong> = Infrastructure as Code</p>
-    <p>Instance configurée automatiquement avec des variables personnalisables</p>
+    <p>Instance configurée automatiquement avec succès !</p>
   </div>
   
   <hr>
